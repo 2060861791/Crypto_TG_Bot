@@ -1,4 +1,4 @@
-# 交易信号监控机器人
+# 交易信号监控Telegram机器人
 
 ## 项目概述
 
@@ -53,6 +53,17 @@
    - 使用 ATR (平均真实范围)
    - 周期：14
    - 权重：10%
+
+## 配置要求
+
+### Telegram 配置（config.py）
+
+```python
+# Telegram 配置
+TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
+OWNER_ID = "YOUR_OWNER_ID"  # 严格限制只有你能使用
+CHAT_ID = "YOUR_CHAT_ID"   # 添加这一行，通常与 OWNER_ID 相同
+```
 
 ## 风险管理功能
 
