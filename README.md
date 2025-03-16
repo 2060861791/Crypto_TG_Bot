@@ -130,15 +130,6 @@
 
 ## 环境安装与配置部署
 
-### Telegram 配置（config.py）
-
-```python
-# Telegram 配置
-TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-OWNER_ID = "YOUR_OWNER_ID"  # 严格限制只有你能使用
-CHAT_ID = "YOUR_CHAT_ID"   # 添加这一行，通常与 OWNER_ID 相同
-```
-
 ### 服务器配置部署与稳定运行
 
 为了确保机器人能够稳定运行，并避免 Binance API 在国内被墙的问题，建议采取以下措施：
