@@ -16,9 +16,10 @@
 8. **自定义监控列表**：允许用户动态添加/删除监控币种
 9. **Twilio 电话与短信通知**：计划集成 Twilio API，当市场出现关键信号时，向用户发送电话或短信提醒
 
-## 预留效果图展示区域
+## 部分命令预览
 
-![IMG_20250316_181511](https://github.com/user-attachments/assets/d57f006b-9be2-4590-a86a-5ffd1ebb026f)
+![未标题-1](https://github.com/user-attachments/assets/a7587834-e888-4fe2-ac2a-5ba900a9dd82)
+
 
 
 ## 技术指标策略
