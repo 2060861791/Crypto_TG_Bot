@@ -54,17 +54,6 @@
    - 周期：14
    - 权重：10%
 
-## 配置要求
-
-### Telegram 配置（config.py）
-
-```python
-# Telegram 配置
-TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-OWNER_ID = "YOUR_OWNER_ID"  # 严格限制只有你能使用
-CHAT_ID = "YOUR_CHAT_ID"   # 添加这一行，通常与 OWNER_ID 相同
-```
-
 ## 风险管理功能
 
 机器人提供以下风险管理功能：
@@ -139,7 +128,56 @@ CHAT_ID = "YOUR_CHAT_ID"   # 添加这一行，通常与 OWNER_ID 相同
 | `/myid` | 获取你的用户ID（用于授权） |
 | `/help` 或 `/h` | 显示帮助信息 |
 
-## 安装与配置
+## 环境安装与配置部署
+
+### Telegram 配置（config.py）
+
+```python
+# Telegram 配置
+TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
+OWNER_ID = "YOUR_OWNER_ID"  # 严格限制只有你能使用
+CHAT_ID = "YOUR_CHAT_ID"   # 添加这一行，通常与 OWNER_ID 相同
+```
+
+### 服务器配置部署与稳定运行
+
+为了确保机器人能够稳定运行，并避免 Binance API 在国内被墙的问题，建议采取以下措施：
+
+1. **使用国内服务器 + 代理**  
+   由于 Binance API 在国内可能无法直接访问，可以购买国内服务器（如阿里云、腾讯云等），然后配置代理（如 Shadowsocks、Clash、WireGuard 等）来绕过访问限制，确保机器人能够正常获取市场数据。
+
+2. **进程管理与自动重启**  
+   服务器上运行 Python 脚本可能会因异常崩溃，为了确保机器人 24 小时不间断运行，推荐使用 `pm2` 进行进程管理：
+
+   - **安装 pm2**  
+
+     ```bash
+     npm install -g pm2
+     ```
+
+   - **启动机器人**  
+
+     ```bash
+     pm2 start index.py --name trading-bot
+     ```
+
+   - **设置开机自启**  
+
+     ```bash
+     pm2 startup
+     ```
+
+   - **持久化进程**（防止服务器重启后丢失进程）  
+
+     ```bash
+     pm2 save
+     ```
+
+3. **日志监控与错误恢复**  
+
+   - `pm2 logs trading-bot` 可实时查看日志，快速排查问题  
+   - `pm2 restart trading-bot` 可手动重启机器人  
+   - 结合 `pm2 monit` 监控内存和 CPU 使用情况，确保长期稳定运行  
 
 ### 1. 环境要求
 - Python 3.6+
