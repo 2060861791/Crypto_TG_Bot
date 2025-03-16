@@ -23,10 +23,10 @@ def help_command(message):
         "🤖 <b>交易信号监控机器人 - 帮助信息</b>\n\n"
         "<b>可用命令:</b>\n\n"
         "📊 <b>/m</b> 或 <b>/market</b>\n- 查看当前市场分析\n\n"
-        "➕ <b>/add BTCUSDT</b>\n- 添加交易对到监控列表\n\n"
-        "➖ <b>/remove DOGEUSDT</b>\n- 从监控列表中移除交易对\n\n"
+        "➕ <b>/add BTC</b>\n- 添加交易对到监控列表\n\n"
+        "➖ <b>/remove DOGE</b>\n- 从监控列表中移除交易对\n\n"
         "📋 <b>/list</b>\n- 显示当前监控的交易对列表\n\n"
-        "🔍 <b>/risk ETHUSDT</b>\n- 查看特定交易对的详细风险分析\n\n"
+        "🔍 <b>/risk ETH</b>\n- 查看特定交易对的详细风险分析\n\n"
         "🆔 <b>/myid</b>\n- 获取你的用户ID\n\n"
         "✅ <b>/test</b>\n- 测试机器人是否正常响应\n\n"
         "❓ <b>/help</b> 或 <b>/h</b>\n- 显示此帮助信息"
@@ -58,10 +58,17 @@ def add_symbol(message):
         
     args = message.text.split()
     if len(args) < 2:
-        bot.reply_to(message, "❌ 请指定要添加的交易对，例如: /add BTCUSDT")
+        bot.reply_to(message, "❌ 请指定要添加的币种，例如: /add BTC")
         return
         
-    symbol = args[1].upper()
+    # 获取币名并转换为大写
+    coin = args[1].upper()
+    
+    # 如果已经包含USDT，使用原样，否则添加USDT后缀
+    if 'USDT' in coin:
+        symbol = coin
+    else:
+        symbol = f"{coin}USDT"
     
     # 验证交易对是否存在
     try:
@@ -101,10 +108,17 @@ def remove_symbol(message):
         
     args = message.text.split()
     if len(args) < 2:
-        bot.reply_to(message, "❌ 请指定要移除的交易对，例如: /remove BTCUSDT")
+        bot.reply_to(message, "❌ 请指定要移除的币种，例如: /remove BTC")
         return
-        
-    symbol = args[1].upper()
+    
+    # 获取币名并转换为大写
+    coin = args[1].upper()
+    
+    # 如果已经包含USDT，使用原样，否则添加USDT后缀
+    if 'USDT' in coin:
+        symbol = coin
+    else:
+        symbol = f"{coin}USDT"
     
     # 加载当前监控列表
     current_symbols = load_user_symbols()
@@ -150,20 +164,17 @@ def risk_analysis(message):
         
     args = message.text.split()
     if len(args) < 2:
-        bot.reply_to(message, "❌ 请指定要分析的交易对，例如: /risk BTCUSDT")
+        bot.reply_to(message, "❌ 请指定要分析的币种，例如: /risk BTC")
         return
-        
-    symbol = args[1].upper()
     
-    # 确保符号格式正确 - 通常以USDT结尾
-    if not symbol.endswith('USDT'):
-        # 如果不包含USDT，则添加USDT后缀
-        if 'USDT' not in symbol:
-            suggestion = f"{symbol}USDT"
-        else:
-            suggestion = symbol
-        bot.reply_to(message, f"⚠️ 交易对格式可能不正确，你是否想查询: {suggestion}?\n请使用 /risk {suggestion}")
-        return
+    # 获取币名并转换为大写
+    coin = args[1].upper()
+    
+    # 如果已经包含USDT，使用原样，否则添加USDT后缀
+    if 'USDT' in coin:
+        symbol = coin
+    else:
+        symbol = f"{coin}USDT"
     
     bot.reply_to(message, f"🔍 正在分析 {symbol} 的风险参数，请稍等...")
     
