@@ -18,7 +18,8 @@
 
 ## 预留效果图展示区域
 
-（这里可以放置一张效果图，如信号分析示例、交易通知截图等）
+![IMG_20250316_181511](https://github.com/user-attachments/assets/d57f006b-9be2-4590-a86a-5ffd1ebb026f)
+
 
 ## 技术指标策略
 
